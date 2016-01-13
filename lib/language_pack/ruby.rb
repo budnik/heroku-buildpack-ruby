@@ -16,7 +16,7 @@ class LanguagePack::Ruby < LanguagePack::Base
   LIBYAML_PATH         = "libyaml-#{LIBYAML_VERSION}"
   BUNDLER_VERSION      = "1.9.7"
   BUNDLER_GEM_PATH     = "bundler-#{BUNDLER_VERSION}"
-  DEFAULT_RUBY_VERSION = "ruby-2.0.0"
+  DEFAULT_RUBY_VERSION = "ruby-2.3.0"
   RBX_BASE_URL         = "http://binaries.rubini.us/heroku"
   NODE_BP_PATH         = "vendor/node/bin"
   ICU4C_VENDOR_PATH    = "icu4c-52.1.0"
@@ -549,13 +549,9 @@ WARNING
         bundle_command = "#{bundle_bin} install --without #{bundle_without} --path vendor/bundle --binstubs #{bundler_binstubs_path}"
         bundle_command << " -j4"
 
-        if bundler.windows_gemfile_lock?
+        if true
           warn(<<-WARNING, inline: true)
-Removing `Gemfile.lock` because it was generated on Windows.
-Bundler will do a full resolve so native gems are handled properly.
-This may result in unexpected gem versions being used in your app.
-In rare occasions Bundler may not be able to resolve your dependencies at all.
-https://devcenter.heroku.com/articles/bundler-windows-gemfile
+Removing `Gemfile.lock` because it's incompatible with bundler 1.9.7
 WARNING
 
           log("bundle", "has_windows_gemfile_lock")
